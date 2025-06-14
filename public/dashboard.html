@@ -18,8 +18,8 @@
       <label for="amount">Numero di crediti:</label>
       <input type="number" name="amount" min="1" required>
 
-      <label for="password">Conferma la tua password:</label>
-      <input type="password" name="password" required>
+      <h3>Classifica</h3>
+      <ul id="leaderboard"></ul>
 
       <button type="submit">Invia</button>
     </form>
@@ -48,6 +48,22 @@
           select.appendChild(option);
         });
       });
+  
+  // Carica classifica
+    fetch('/api/leaderboard')
+      .then(res => res.json())
+      .then(data => {
+        const ul = document.getElementById('leaderboard');
+        data.forEach((user, index) => {
+          const li = document.createElement('li');
+          li.textContent = `${index + 1}. ${user.username} - ${user.credits} crediti`;
+          ul.appendChild(li);
+        });
+      });
   </script>
+
 </body>
 </html>
+
+
+
