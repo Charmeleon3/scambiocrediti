@@ -80,9 +80,10 @@ app.post('/api/transfer', authRequired, (req, res) => {
   const amt = parseInt(amount);
 
   db.get('SELECT * FROM users WHERE username = ?', [sender], async (err, senderUser) => {
-    if (!senderUser || !(await bcrypt.compare(password, senderUser.password)) || senderUser.credits < amt) {
+    if (!senderUser || senderUser.credits < amt) {
       return res.status(403).send('Operazione non valida');
     }
+
 
     db.run('UPDATE users SET credits = credits - ? WHERE username = ?', [amt, sender], (err) => {
       db.run('UPDATE users SET credits = credits + ? WHERE username = ?', [amt, receiver], (err) => {
