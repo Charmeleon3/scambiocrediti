@@ -154,3 +154,9 @@ app.post('/api/admin/deleteuser', express.json(), (req, res) => {
     res.send('Utente eliminato');
   });
 });
+
+app.get('/api/leaderboard', authRequired, (req, res) => {
+  db.all('SELECT username, credits FROM users ORDER BY credits DESC', (err, rows) => {
+    res.json(rows);
+  });
+});
