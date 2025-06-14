@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Festa</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Ciao, <span id="username">...</span>!</h1>
+    <p>Crediti disponibili: <strong id="credits">...</strong></p>
+
+    <h2>Invia crediti</h2>
+    <form action="/api/transfer" method="POST">
+      <label for="receiver">Destinatario:</label>
+      <select name="receiver" id="receiver" required></select>
+
+      <label for="amount">Numero di crediti:</label>
+      <input type="number" name="amount" min="1" required>
+
+      <label for="password">Conferma la tua password:</label>
+      <input type="password" name="password" required>
+
+      <button type="submit">Invia</button>
+    </form>
+
+    <p><a href="/logout">Esci</a></p>
+  </div>
+
+  <script>
+    // Carica dati utente
+    fetch('/api/user')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('username').textContent = data.username;
+        document.getElementById('credits').textContent = data.credits;
+      });
+
+    // Carica lista altri utenti
+    fetch('/api/users')
+      .then(res => res.json())
+      .then(users => {
+        const select = document.getElementById('receiver');
+        users.forEach(u => {
+          const option = document.createElement('option');
+          option.value = u.username;
+          option.textContent = u.username;
+          select.appendChild(option);
+        });
+      });
+  </script>
+</body>
+</html>

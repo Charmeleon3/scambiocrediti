@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Festa</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Accesso Festa</h1>
+    <form action="/login" method="POST">
+      <label for="username">Nome utente:</label>
+      <input type="text" name="username" required>
+
+      <label for="password">Password:</label>
+      <input type="password" name="password" required>
+
+      <button type="submit">Entra</button>
+    </form>
+
+    <p style="color: red;">
+      <script>
+        if (window.location.search.includes('error=1')) {
+          document.write('Credenziali errate. Riprova.');
+        }
+      </script>
+    </p>
+  </div>
+</body>
+</html>
