@@ -48,17 +48,7 @@
         });
       });
   
-  // Carica classifica
-    fetch('/api/leaderboard')
-      .then(res => res.json())
-      .then(data => {
-        const ul = document.getElementById('leaderboard');
-        data.forEach((user, index) => {
-          const li = document.createElement('li');
-          li.textContent = `${index + 1}. ${user.username} - ${user.credits} crediti`;
-          ul.appendChild(li);
-        });
-      });
+  
   </script>
 
 </body>
