@@ -48,7 +48,8 @@ function authRequired(req, res, next) {
 // --- Routes ---
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
-  db.get('SELECT * FROM users WHERE username = ?', [username], async (err, user) => {
+  const normalizedUsername = username.toLowerCase();
+  db.get('SELECT * FROM users WHERE LOWER(username) = ?', [normalizedUsername], async (err, user) => {
     if (user && await bcrypt.compare(password, user.password)) {
       req.session.username = username;
       res.redirect('/dashboard.html');
