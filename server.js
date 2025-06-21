@@ -51,7 +51,7 @@ app.post('/login', (req, res) => {
   const normalizedUsername = username.toLowerCase();
   db.get('SELECT * FROM users WHERE LOWER(username) = ?', [normalizedUsername], async (err, user) => {
     if (user && await bcrypt.compare(password, user.password)) {
-      req.session.username = username;
+      req.session.username = user.username.toLowerCase();
       res.redirect('/dashboard.html');
     } else {
       res.redirect('/login.html?error=1');
