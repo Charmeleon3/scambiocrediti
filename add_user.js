@@ -107,7 +107,7 @@ const rl = readline.createInterface({
 rl.question('Username: ', username => {
   rl.question('Password: ', password => {
     bcrypt.hash(password, 10, (err, hash) => {
-      db2.run('INSERT INTO users (username, password) VALUES (?, ?)', [username, hash], err => {
+      db2.run('INSERT INTO users (username, password) VALUES (?, ?)', [username.toLowerCase(), hash], err => {
         if (err) return console.error('Errore:', err.message);
         console.log('Utente creato con successo!');
         rl.close();
